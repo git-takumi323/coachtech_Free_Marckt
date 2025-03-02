@@ -1,20 +1,9 @@
-version: '3.8'
-
 services:
   php:
     build: ./docker/php
-    container_name: laravel_app
-    working_dir:
-      /var/www
-      # php コンテナのカレントディレクトリを /var/www にする　php artisan migrate などをスムーズに実行できる
     volumes:
       - ./src:/var/www/
         # ローカルの src/ をコンテナの /var/www/ にマウント	ローカルで編集したコードがコンテナ内に即時反映
-    mysql:
-      condition: service_healthy # MySQL が完全に起動するまで待つ
-    depends_on:
-      - mysql
-      # mysql が起動してから php を起動する
 
   web:
     image: nginx:latest
