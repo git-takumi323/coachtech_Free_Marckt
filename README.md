@@ -7,3 +7,4 @@
 ## 使用技術
 ## ER図
 ## URL
+- phpadmin:http://localhost:8080/
