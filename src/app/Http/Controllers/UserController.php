@@ -16,21 +16,30 @@ class UserController extends Controller
         return view('users.setup');
     }
 
-    // // プロフィール表示
-    // public function show(Request $request)
-    // {
-    //     $user = auth()->user();
-    //     $tab = $request->query('tab', 'profile');
+        // プロフィール表示
+        public function show(Request $request)
+        {
+            // $user = auth()->user();
 
-    //     return view('users.show', compact('user', 'tab'));
-    // }
+            // IDが1のユーザーを取得（仮のデータとして）
+            $user = User::find(1);
+            $items = []; // 空の配列をデフォルト値として設定
 
-    // // プロフィール編集ページ
-    // public function edit()
-    // {
-    //     $user = auth()->user();
-    //     return view('users.edit', compact('user'));
-    // }
+        // ユーザーがいる場合、関連するアイテムを取得（例）
+        if ($user) {
+            $items = $user->items ?? []; // ユーザーに関連する items を取得（リレーションがあれば）
+        }
+            $tab = $request->query('tab', 'profile');
+
+            return view('users.show', compact('user', 'tab', 'items')); // ユーザー情報とタブ情報をビューに渡す
+        }
+
+    // プロフィール編集ページ
+    public function edit()
+    {
+        $user = User::find(1); // IDが1のユーザーを取得（仮のデータとして）
+        return view('users.edit', compact('user'));
+    }
 
     // // プロフィール更新処理
     // public function update(Request $request)
